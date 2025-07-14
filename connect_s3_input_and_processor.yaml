@@ -1,0 +1,26 @@
+input:
+   label: monitor_s3_object
+   aws_s3_object_monitor:
+     credentials:
+        id: <AWS_ID>
+        secret: <AWS_KEY>
+     bucket: <AWS_BUCKET>
+     region: <AWS_REGION>
+     bookmark_manager:
+        file_path: ./bookmarks.json
+     check_interval_min: 1
+     
+ pipeline:
+   processors:     
+     - mapping: |                  
+         meta s3_key = this.object_info.key
+         meta s3_bucket = this.object_info.bucket
+     - aws_s3_object_object_read_op:
+         batching:
+           batch_size_bytes: 1000000000
+         credentials:
+           id: <AWS_ID>
+           secret: <AWS_KEY>
+output:
+  label: out
+  stdout: {}

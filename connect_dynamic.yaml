@@ -1,0 +1,26 @@
+input:
+  generate:
+    mapping: |
+        root = counter()
+    count: 3
+    interval: 5s
+
+pipeline:
+  threads: 1
+  processors:    
+    - mapping: |
+        meta s3_key = "<S3_OBJECT_KEY>"
+        meta s3_bucket = "<S3_OBJECT_BUCKET>"
+    - aws_s3_object_object_read_op:
+        batching:
+          batch_size_bytes: 1000000000
+        credentials:
+          id: <AWS_ID>
+          secret: <AWS_KEY>
+    - log:
+        level: INFO
+        message: "metadata: ${! meta()}}"
+
+output:
+  label: out
+  stdout: {}

@@ -1,0 +1,5 @@
+name: aws_s3_object_object_read_op
+summary: Reads s3 object
+command: ["uv", "run", "rpcn-s3-read-processor.py"]
+type: processor
+fields: []

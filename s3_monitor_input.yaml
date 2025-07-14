@@ -1,0 +1,31 @@
+name: aws_s3_object_monitor
+summary: Just generate some JSON
+command: ["uv", "run", "rpcn-s3-change_monitor-input.py"]
+type: input
+fields:
+  - name: bucket
+    type: string
+    description: s3 bucket name
+  - name: region
+    type: string
+    description: s3 region name
+  - name: credentials
+    description: aws credentials
+    fields:
+      - name: id
+        type: string
+        description: aws ID
+      - name: secret
+        type: string
+        description: aws secret
+  - name: bookmark_manager
+    description: bookmarks manager configuration
+    fields:
+      - name: file_path
+        type: string
+        description: bookmark manager file path
+  - name: check_interval_min
+    type: int
+    description: check interval in minutes
+
+
